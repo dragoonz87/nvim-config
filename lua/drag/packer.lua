@@ -24,10 +24,21 @@ return require('packer').startup(function(use)
     })
 
     use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
-    use('nvim-treesitter/playground')
-    use('theprimeagen/harpoon')
-    use('mbbill/undotree')
     use('tpope/vim-fugitive')
+    use('nvim-lua/plenary.nvim')
+
+    use({
+        'ThePrimeagen/harpoon',
+        branch = 'harpoon2',
+        requires = { { 'nvim-lua/plenary.nvim' } },
+    })
+
+    use({
+        'folke/trouble.nvim',
+        config = function()
+            require('trouble').setup({ icons = false })
+        end
+    })
 
     use({
         'VonHeikemen/lsp-zero.nvim',
@@ -72,5 +83,4 @@ return require('packer').startup(function(use)
             },
         },
     })
-
 end)
