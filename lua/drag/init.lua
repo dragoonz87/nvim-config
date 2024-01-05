@@ -1,3 +1,3 @@
 require("drag.remap")
 require("drag.set")
-require("drag.packer")
+require("drag.lazy")
