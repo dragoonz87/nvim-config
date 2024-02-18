@@ -1,4 +1,4 @@
-vim.opt.mouse = "a"
+vim.opt.mouse = ""
 
 vim.opt.cursorline = true
 
@@ -8,6 +8,11 @@ vim.opt.breakindent = true
 
 vim.opt.nu = true
 vim.opt.relativenumber = true
+
+vim.opt.foldcolumn = "1"
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+vim.opt.foldenable = true
 
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
