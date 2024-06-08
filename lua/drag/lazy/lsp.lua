@@ -16,7 +16,6 @@ return {
         -- Snippets
         {
             "L3MON4D3/LuaSnip",
-            version = "v2.2.0",
             build = "make install_jsregexp"
         },
         "rafamadriz/friendly-snippets",
@@ -25,12 +24,21 @@ return {
         local lsp_zero = require("lsp-zero")
         require("neodev").setup({})
 
-        require("lspconfig").lua_ls.setup({
+        local lspconfig = require("lspconfig")
+        lspconfig.lua_ls.setup({
             settings = {
                 Lua = {
                     diagnostics = {
                         globals = { 'vim' }
                     }
+                }
+            }
+        })
+
+        lspconfig.clangd.setup({
+            settings = {
+                CPP = {
+                    cmd = { "clangd", "-style=file:~/.clang-format" }
                 }
             }
         })
@@ -47,7 +55,16 @@ return {
             })
         })
 
-        lsp_zero.set_preferences({ sign_icons = {} })
+        local ls = require("luasnip")
+        vim.keymap.set({"i"}, "<C-K>", function() ls.expand() end, {silent = true})
+        vim.keymap.set({"i", "s"}, "<C-L>", function() ls.jump( 1) end, {silent = true})
+        vim.keymap.set({"i", "s"}, "<C-J>", function() ls.jump(-1) end, {silent = true})
+
+        vim.keymap.set({"i", "s"}, "<C-E>", function()
+            if ls.choice_active() then
+                ls.change_choice(1)
+            end
+        end, {silent = true})
 
         lsp_zero.on_attach(function(_, bufnr)
             local opts = { buffer = bufnr, remap = false }

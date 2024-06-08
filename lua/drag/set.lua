@@ -33,10 +33,12 @@ vim.opt.smartcase = true
 
 vim.opt.termguicolors = true
 
-vim.opt.scrolloff = 23
+vim.opt.scrolloff = 100
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
 
 vim.g.mapleader = " "
+
+vim.g.tex_flavor = "latex"

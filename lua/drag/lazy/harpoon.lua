@@ -8,7 +8,7 @@ return {
         harpoon:setup({})
 
         require("which-key").register({
-            a = { function() harpoon:list():append() end, "[A]ppend to Harpoon list" }
+            a = { function() harpoon:list():add() end, "[A]ppend to Harpoon list" }
         }, { prefix = "<leader>" })
         vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
         vim.keymap.set("n", "<C-h>", function() harpoon:list():select(1) end)
