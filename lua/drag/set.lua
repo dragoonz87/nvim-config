@@ -42,3 +42,4 @@ vim.opt.updatetime = 50
 vim.g.mapleader = " "
 
 vim.g.tex_flavor = "latex"
+vim.g.jukit_mappings = 0
