@@ -1,7 +1,13 @@
 return {
     "luk400/vim-jukit",
     config = function()
+        vim.g.jukit_pdf_viewer = "evince"
+        vim.api.nvim_create_autocmd("ColorScheme", {
+            command = "highlight jukit_cellmarker_colors guifg=#1d615a guibg=#1d615a ctermbg=22 ctermfg=22"
+        })
+
         local wk = require("which-key")
+
         wk.register({
             o = {
                 s = { function() vim.api.nvim_call_function("jukit#splits#output", {}) end, "[J]ukit [o]utput [s]how" },
@@ -36,7 +42,7 @@ return {
             },
             n = {
                 c = { function() vim.api.nvim_call_function("jukit#convert#notebook_convert", { "jupyter-notebook" }) end, "[J]ukit [n]otebook [c]onvert" },
-                p = { function() vim.api.nvim_call_function("jukit#convert#save_nb_to_file", { 1, 0, "pdf" }) end, "[J]ukit [n]otebook export to [p]df" },
+                p = { function() vim.api.nvim_call_function("jukit#convert#save_nb_to_file", { 1, 1, "pdf" }) end, "[J]ukit [n]otebook export to [p]df" },
             },
             J = { function() vim.api.nvim_call_function("jukit#cells#move_down", {}) end, "[J]ukit move cell down" },
             K = { function() vim.api.nvim_call_function("jukit#cells#move_up", {}) end, "[J]ukit move cell up" },

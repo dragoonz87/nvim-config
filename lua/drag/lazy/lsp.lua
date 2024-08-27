@@ -107,7 +107,7 @@ return {
                 "eslint",
                 "rust_analyzer",
                 "svelte",
-                "pylsp",
+                "pyright",
                 "clangd",
                 "lua_ls",
             },

@@ -17,7 +17,9 @@ vim.keymap.set("v", "<leader>d", "\"_d")
 
 vim.keymap.set("n", "Q", "<nop>")
 
-vim.keymap.set("n", "<leader>f", function() vim.lsp.buf.format() end)
+vim.keymap.set("n", "<leader>f", function()
+    vim.lsp.buf.format()
+end)
 
 -- decided I don't really want this
 -- vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
@@ -29,3 +31,5 @@ vim.keymap.set("n", "<leader>j", "<c-w>j")
 vim.keymap.set("n", "<leader>k", "<c-w>k")
 vim.keymap.set("n", "<leader>w", ":w<cr>")
 vim.keymap.set("n", "<leader>q", ":q<cr>")
+
+vim.keymap.set("n", "<leader>p", ":!([ -d .auxfiles ] || mkdir .auxfiles) && pdflatex -output-directory=.auxfiles % && mv .auxfiles/%:r.pdf . && evince %:r.pdf &<CR>")
