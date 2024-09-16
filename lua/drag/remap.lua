@@ -32,4 +32,4 @@ vim.keymap.set("n", "<leader>k", "<c-w>k")
 vim.keymap.set("n", "<leader>w", ":w<cr>")
 vim.keymap.set("n", "<leader>q", ":q<cr>")
 
-vim.keymap.set("n", "<leader>p", ":!([ -d .auxfiles ] || mkdir .auxfiles) && pdflatex -output-directory=.auxfiles % && mv .auxfiles/%:r.pdf . && evince %:r.pdf &<CR>")
+vim.keymap.set("n", "<leader>p", ":!([ %:e = \".pdf\" ] || (echo 'not pdf' && exit 1)) && ([ -d .auxfiles ] || mkdir .auxfiles) && pdflatex -output-directory=.auxfiles % && mv .auxfiles/%:r.pdf . && evince %:r.pdf &<CR>")

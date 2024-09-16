@@ -1,6 +1,6 @@
 return {
     "stevearc/oil.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    dependencies = { "nvim-tree/nvim-web-devicons", "echasnovski/mini.icons" },
     config = function()
         local oil = require("oil")
         local columns = {
@@ -12,27 +12,26 @@ return {
             columns = columns,
         })
 
-        require("which-key.keys").register({
-            ["-"] = { function() oil.open() end, "Open parent directory" },
-            o = {
-                s = {
-                    function()
-                        if #columns == 2 then
-                            columns = {
-                                "icon"
-                            }
-                        else
-                            columns = {
-                                "icon",
-                                "size"
-                            }
-                        end
+        require("which-key").add({
+            { "<leader>-", function() oil.open() end, desc = "Open parent directory" },
+            {
+                "<leader>os",
+                function()
+                    if #columns == 2 then
+                        columns = {
+                            "icon"
+                        }
+                    else
+                        columns = {
+                            "icon",
+                            "size"
+                        }
+                    end
 
-                        oil.set_columns(columns)
-                    end,
-                    "[O]il show [s]ize"
-                }
+                    oil.set_columns(columns)
+                end,
+                desc = "[O]il show [s]ize"
             }
-        }, { prefix = "<leader>" })
+        })
     end
 }

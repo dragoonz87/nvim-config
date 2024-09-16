@@ -7,8 +7,8 @@ return {
             shell = "zsh",
         })
 
-        require("which-key").register({
-            t = { vim.cmd.ToggleTerm, "[T]erminal"}
-        }, { prefix = "<leader>" })
+        require("which-key").add({
+            { "<leader>t", vim.cmd.ToggleTerm, desc = "[T]erminal" }
+        })
     end
 }

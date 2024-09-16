@@ -7,10 +7,10 @@ return {
             border = "rounded"
         })
 
-        require("which-key").register({
-            p = { function() fold.toggle_preview() end, "Preview fold" },
-            o = "Open fold",
-            c = "Close fold"
-        }, { prefix = "z" })
+        require("which-key").add({
+            { "zc", function() fold.toggle_preview() end, desc = "Preview fold" },
+            { "zo",  desc = "Open fold" },
+            { "zc",  desc = "Close fold" }
+        })
     end
 }
