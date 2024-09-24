@@ -8,7 +8,7 @@ return {
         })
 
         require("which-key").add({
-            { "zc", function() fold.toggle_preview() end, desc = "Preview fold" },
+            { "zp", function() fold.toggle_preview() end, desc = "Preview fold" },
             { "zo",  desc = "Open fold" },
             { "zc",  desc = "Close fold" }
         })
