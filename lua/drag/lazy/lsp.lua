@@ -16,13 +16,16 @@ return {
         -- Snippets
         {
             "L3MON4D3/LuaSnip",
-            build = "make install_jsregexp"
+            build = "make install_jsregexp",
+            dependencies = { "rafamadriz/friendly-snippets", },
+            lazy = false
         },
-        "rafamadriz/friendly-snippets",
+        -- "rafamadriz/friendly-snippets",
     },
     config = function()
         local lsp_zero = require("lsp-zero")
         require("neodev").setup({})
+        require("java").setup()
 
         local lspconfig = require("lspconfig")
         lspconfig.lua_ls.setup({
@@ -43,6 +46,40 @@ return {
             }
         })
 
+        lspconfig.denols.setup({
+            -- root_dir = function(filename, _)
+            --     local denoRootDir = lspconfig.util.root_pattern("deno.json", "deno.jsonc")(filename)
+            --     if denoRootDir then
+            --         return denoRootDir
+            --     else
+            --         return nil
+            --     end
+            -- end,
+            -- filetypes = { "typescript" }
+            root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc")
+        })
+
+        lspconfig.ts_ls.setup({
+            root_dir = function(filename, _)
+                local denoRootDir = lspconfig.util.root_pattern("deno.json", "deno.json")(filename);
+                if denoRootDir then
+                    -- print('this seems to be a deno project; returning nil so that tsserver does not attach');
+                    return nil;
+                    -- else
+                    -- print('this seems to be a ts project; return root dir based on package.json')
+                end
+
+                return lspconfig.util.root_pattern("package.json")(filename);
+            end,
+            single_file_support = false
+        })
+
+        lspconfig.typst_lsp.setup({
+            settings = {
+                exportPdf = "onSave"
+            }
+        })
+
         local cmp = require("cmp")
         local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
@@ -56,6 +93,9 @@ return {
         })
 
         local ls = require("luasnip")
+
+        require("luasnip.loaders.from_vscode").lazy_load()
+
         local wk = require("which-key")
         local silent = { silent = true }
         wk.add({

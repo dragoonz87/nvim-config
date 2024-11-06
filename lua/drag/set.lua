@@ -43,3 +43,9 @@ vim.g.mapleader = " "
 
 vim.g.tex_flavor = "latex"
 vim.g.jukit_mappings = 0
+
+vim.filetype.add({
+    extension = {
+        typ = "typst"
+    }
+})
