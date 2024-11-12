@@ -65,7 +65,7 @@ return {
                     require("lspconfig").tinymist.setup({
                         capabilities = capabilities,
                         single_file_mode = false,
-                        root_dir = vim.fn.getcwd(),
+                        root_dir = function(_, _) return vim.fn.getcwd() end,
                         offset_encoding = "utf-8",
                         settings = {
                             formatterMode = "typstyle",
