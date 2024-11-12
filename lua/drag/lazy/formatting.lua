@@ -20,7 +20,8 @@ return {
                     async = false,
                     timeout_ms = 500
                 })
-            end
+            end,
+            desc = "[F]ormat"
             }
         })
     end
