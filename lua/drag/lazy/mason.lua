@@ -70,18 +70,32 @@ return {
                         capabilities = capabilities,
                     })
                     vim.api.nvim_create_autocmd("BufWritePost", {
+                        pattern = { "*.tex" },
                         callback = function()
-                            if vim.fn.expand("%:e") ~= "tex" then
-                                return
-                            end
                             local ok, _, code = os.rename(".auxfiles/", ".auxfiles")
                             if not ok and code ~= 13 then
-                                os.execute("mkdir .auxfiles")
+                                local made = os.execute("mkdir .auxfiles")
+                                if not made ~= 0 then
+                                    vim.notify("failed to make .auxfiles", vim.log.levels.ERROR)
+                                    return
+                                end
                             end
-                            for _ = 1, 2, 1 do
-                                os.execute(vim.fn.expandcmd("pdflatex -output-directory=.auxfiles % >> /dev/null"))
+
+                            local basename = vim.fs.basename(vim.fn.expand("%"))
+                            for i = 1, 2, 1 do
+                                local compiled = os.execute(string.format(
+                                    "pdflatex -output-directory=.auxfiles %s >> /dev/null", basename))
+                                if compiled ~= 0 then
+                                    vim.notify(string.format("failed to compile latex at iteration %d", i), vim.log.levels.ERROR)
+                                    return
+                                end
                             end
-                            os.execute(vim.fn.expandcmd("mv .auxfiles/%:r.pdf ."))
+
+                            local filename = string.sub(basename, 1, string.find(basename, ".tex") - 1)
+                            local moved = os.execute(string.format("mv .auxfiles/%s.pdf . 2> /dev/null", filename))
+                            if moved ~= 0 then
+                                vim.notify("failed to move pdf file", vim.log.levels.ERROR)
+                            end
                         end
                     })
                     require("which-key").add({
