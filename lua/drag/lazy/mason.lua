@@ -13,7 +13,7 @@ return {
         }
 
         local function previewPdf()
-            os.execute(vim.fn.expandcmd("evince %:r.pdf&"))
+            os.execute(vim.fn.expandcmd("evince %:r.pdf > /dev/null &"))
         end
 
         require("mason").setup()
