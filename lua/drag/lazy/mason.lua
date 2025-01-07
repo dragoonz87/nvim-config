@@ -13,8 +13,12 @@ return {
         }
 
         local function previewPdf()
-            os.execute(vim.fn.expandcmd("evince %:r.pdf > /dev/null &"))
+            os.execute(vim.fn.expandcmd("evince %:r.pdf >> /dev/null &"))
         end
+
+        require("lspconfig").gleam.setup({
+            capabilities = capabilities
+        })
 
         require("mason").setup()
         require("mason-lspconfig").setup({
