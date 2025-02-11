@@ -13,7 +13,7 @@ return {
         }
 
         local function previewPdf()
-            os.execute(vim.fn.expandcmd("evince %:r.pdf >> /dev/null &"))
+            os.execute(vim.fn.expandcmd("evince %:r.pdf >> /dev/null 2> /dev/null &"))
         end
 
         require("lspconfig").gleam.setup({
@@ -90,7 +90,8 @@ return {
                                 local compiled = os.execute(string.format(
                                     "pdflatex -output-directory=.auxfiles %s >> /dev/null", basename))
                                 if compiled ~= 0 then
-                                    vim.notify(string.format("failed to compile latex at iteration %d", i), vim.log.levels.ERROR)
+                                    vim.notify(string.format("failed to compile latex at iteration %d", i),
+                                        vim.log.levels.ERROR)
                                     return
                                 end
                             end
