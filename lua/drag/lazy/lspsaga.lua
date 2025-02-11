@@ -9,21 +9,6 @@ return {
         local saga = require("lspsaga")
         local quit_key = { quit = "<C-c>" }
 
-        saga.setup({
-            code_action = {
-                keys = quit_key
-            },
-            outline = {
-                layout = "float",
-                keys = vim.tbl_deep_extend("force", quit_key, {
-                    jump = "<CR>"
-                })
-            },
-            rename = {
-                keys = quit_key
-            }
-        })
-
         local hover = function() require("lspsaga.hover"):render_hover_doc() end
         local peek_def = function() require("lspsaga.definition"):init(1, 1) end
         local codeaction = function() require("lspsaga.codeaction"):code_action() end
@@ -31,6 +16,35 @@ return {
         local implementations = function() require("lspsaga.finder"):new({ "imp" }) end
         local outline = function() require("lspsaga.symbol"):outline() end
         local rename = function() require("lspsaga.rename"):lsp_rename() end
+
+        local function quit_and(table)
+            return vim.tbl_deep_extend("force", quit_key, table)
+        end
+
+        saga.setup({
+            code_action = {
+                keys = quit_key
+            },
+            definition = {
+                keys = quit_and({
+                    edit = "<CR>"
+                })
+            },
+            finder = {
+                keys = quit_and({
+                    toggle_or_open = "<CR>"
+                })
+            },
+            outline = {
+                layout = "float",
+                keys = quit_and({
+                    jump = "<CR>"
+                })
+            },
+            rename = {
+                keys = quit_key
+            }
+        })
 
         require("which-key").add({
             { "gh",         hover,           desc = "[G]o to [h]over" },
