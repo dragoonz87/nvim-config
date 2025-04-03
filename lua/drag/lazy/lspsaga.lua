@@ -30,6 +30,9 @@ return {
                     edit = "<CR>"
                 })
             },
+            hover = {
+                keys = quit_key
+            },
             finder = {
                 keys = quit_and({
                     toggle_or_open = "<CR>"
